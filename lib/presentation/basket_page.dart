@@ -18,7 +18,7 @@ class BasketPage extends StatelessWidget {
         return Column(
           children: [
             OfferLoader(books: books),
-            Expanded(child: BookList(books: books)),
+            Expanded(child: BookList(books: books, basketAvailable: true)),
           ],
         );
       }),

@@ -1,33 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_henri_potier/domain/book.dart';
+import 'package:flutter_henri_potier/presentation/basket_book_switch.dart';
 import 'package:flutter_henri_potier/presentation/book_cover.dart';
-import 'package:flutter_henri_potier/presentation/state/basket_provider.dart';
-import 'package:provider/provider.dart';
 
-class BookTile extends StatefulWidget {
+class BookTile extends StatelessWidget {
   final Book book;
   final bool basketAvailable;
 
   const BookTile({super.key, required this.book, this.basketAvailable = false});
-
-  @override
-  State<BookTile> createState() => _BookTileState();
-}
-
-class _BookTileState extends State<BookTile> {
-  bool added = false;
-
-  handleChange(bool value) {
-    setState(() {
-      added = value;
-    });
-
-    if (added) {
-      context.read<BasketProvider>().addBook(widget.book);
-    } else {
-      context.read<BasketProvider>().removeBook(widget.book.isbn);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +15,13 @@ class _BookTileState extends State<BookTile> {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          BookCover(coverUrl: widget.book.cover),
+          BookCover(coverUrl: book.cover),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(widget.book.title),
+            child: Text(book.title),
           ),
           const Spacer(),
-          if (widget.basketAvailable)
-            Switch(onChanged: handleChange, value: added)
-          else
-            Container()
+          if (basketAvailable) BasketBookSwitch(book: book) else Container()
         ],
       ),
     );

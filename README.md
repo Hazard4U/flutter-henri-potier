@@ -6,5 +6,4 @@ run: `flutter run -d chrome --web-renderer html`
 
 ## Work group
 
-Théo Martel
-Louis Muzellec
+Théo Martel & Louis Muzellec
