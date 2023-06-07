@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_henri_potier/domain/book.dart';
 import 'package:flutter_henri_potier/presentation/basket_book_switch.dart';
 import 'package:flutter_henri_potier/presentation/book_cover.dart';
+import 'package:go_router/go_router.dart';
 
 class BookTile extends StatelessWidget {
   final Book book;
@@ -16,9 +17,17 @@ class BookTile extends StatelessWidget {
       child: Row(
         children: [
           BookCover(coverUrl: book.cover),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(book.title),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                context.push("/book/${book.isbn}");
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(book.title),
+              ),
+            ),
           ),
           const Spacer(),
           if (basketAvailable) BasketBookSwitch(book: book) else Container()
